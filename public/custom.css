@@ -5,6 +5,11 @@ html, body {
   color: #333;
 }
 
+.long-code {
+  max-height: 80%;
+  overflow-y: auto;
+}
+
 .subtitle {
   color: #949494;
 }
