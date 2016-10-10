@@ -12,7 +12,7 @@
 class: middle, center
 
 ![ferris](public/img/ferris.png)
-# a-very-brief-intro-to-rust
+# a very brief intro to rust
 
 ---
 class: middle, left
@@ -26,6 +26,121 @@ class: middle, left
 ### PRs and issues welcome!
 
 made by [@ag_dubs](https://twitter.com/ag_dubs) who is, at best, an advanced beginner in Rust
+
+---
+class: middle, left
+## Quickly - Why Rust?
+### Motivating Examples:
+
+- http://blog.skylight.io/introducing-helix/
+- https://www.wired.com/2016/03/epic-story-dropboxs-exodus-amazon-cloud-empire/
+	- Why? - (https://news.ycombinator.com/item?id=11283230)
+	- In Depth: https://blogs.dropbox.com/tech/2016/05/inside-the-magic-pocket/
+- Another Dropbox thing: https://blogs.dropbox.com/tech/2016/06/lossless-compression-with-brotli/
+- http://www.agildata.com/building-scalable-mysql-proxy-rust/
+	- Rust MySQL proxy written in a few weeks vs C++ MySQL proxy server with more time to optimize
+
+---
+class: middle, left
+
+## Ruby String.blank?
+
+```ruby
+class String  
+  # A string is blank if it's empty or contains whitespaces only:
+  #
+  #   ''.blank?       # => true
+  #   '   '.blank?    # => true
+  #   "\t\n\r".blank? # => true
+  #   ' blah '.blank? # => false
+  #
+  # Unicode whitespace is supported:
+  #
+  #   "\u00a0".blank? # => true
+  #
+  def blank?
+    /\A[[:space:]]*\z/ === self
+  end
+end  
+```
+
+---
+class: middle, left
+
+## https://github.com/SamSaffron/fast_blank
+
+```c
+static VALUE  
+rb_str_blank(VALUE str)  
+{
+  rb_encoding *enc;
+  char *s, *e;
+
+  enc = STR_ENC_GET(str);
+  s = RSTRING_PTR(str);
+  if (!s || RSTRING_LEN(str) == 0) return Qtrue;
+
+  e = RSTRING_END(str);
+  while (s < e) {
+    int n;
+    unsigned int cc = rb_enc_codepoint_len(s, e, &n, enc);
+
+    switch (cc) {
+      case 9:
+      case 0xa:
+      case 0xb:
+      case 0xc:
+      case 0xd:
+      case 0x20:
+      case 0x85:
+      case 0xa0:
+      case 0x1680:
+      case 0x2000:
+      case 0x2001:
+      case 0x2002:
+      case 0x2003:
+      case 0x2004:
+      case 0x2005:
+      case 0x2006:
+      case 0x2007:
+      case 0x2008:
+      case 0x2009:
+      case 0x200a:
+      case 0x2028:
+      case 0x2029:
+      case 0x202f:
+      case 0x205f:
+      case 0x3000:
+          /* found */
+          break;
+      default:
+          return Qfalse;
+    }
+    s += n;
+  }
+  return Qtrue;
+}
+```
+
+---
+class: middle, left
+
+## Fast_blank in Rust
+
+```rust
+pub extern "C" fn fast_blank(buf: Buf) -> bool {  
+    buf.as_slice().chars().all(|c| c.is_whitespace())
+}
+```
+
+```
+=========== Test String Length: 6 ===========
+  Rust     11.043M (± 3.5%) i/s -     54.744M
+  C        10.583M (± 8.5%) i/s -     52.464M
+  Ruby    964.469k (±27.6%) i/s -      4.390M
+```
+
+*Boilerplate Omitted* We'll circle back in a bit.
 
 ---
 class: middle, left
@@ -47,7 +162,7 @@ version manager. To install it:
 Prereq: [Microsoft Visual C++ Build Tools 2015](https://www.visualstudio.com/downloads/) (Visual Studio install option)
 
 ```
-Run rustup‑init.exe...
+Run rustup-init.exe...
   Choose toolchain x86_64-pc-windows-msvc
 ```
 
@@ -238,6 +353,24 @@ println!("hello {}!", "world");
 
 ```rust
 format!("my dogs are named: {} and {}", "cheeto", "frito");
+```
+
+---
+class: middle, left
+
+## https://github.com/rustbridge/helix
+
+```rust
+#[macro_use]
+extern crate helix;
+
+declare_types! {
+    reopen class RubyString {
+        def is_blank(self) -> bool {
+            self.chars().all(|c| c.is_whitespace())
+        }
+    }
+}
 ```
 
 ---
