@@ -12,19 +12,21 @@
 class: middle, center
 
 ![ferris](public/img/ferris.png)
-# a very brief intro to rust
+# a-very-brief-intro-to-rust
 
 ---
 class: middle, left
 
 ## links
 
-- web: https://ashleygwilliams.github.io/a-very-brief-intro-to-rust/#1
+- web: https://ghotiphud.github.io/a-very-brief-intro-to-rust/#1
 - github: https://github.com/ashleygwilliams/a-very-brief-intro-to-rust
+- fork: https://github.com/ghotiphud/a-very-brief-intro-to-rust
 
 ### PRs and issues welcome!
 
 made by [@ag_dubs](https://twitter.com/ag_dubs) who is, at best, an advanced beginner in Rust
+
 ---
 class: middle, left
 
@@ -40,10 +42,13 @@ class: middle, left
 ## install rust
 
 The best way to install Rust is with [rustup](https://www.rustup.rs/). rustup is a Rust
-version manager. To install it type:
+version manager. To install it:
+
+Prereq: [Microsoft Visual C++ Build Tools 2015](https://www.visualstudio.com/downloads/) (Visual Studio install option)
 
 ```
-curl https://sh.rustup.rs -sSf | sh
+Run rustup‑init.exe...
+  Choose toolchain x86_64-pc-windows-msvc
 ```
 
 To keep your rust up-to-date with the latest stable version of rust,
@@ -58,6 +63,7 @@ To check which version of Rust you have type:
 ```
 rustc -- version
 ```
+
 ---
 class: middle, left
 
@@ -100,6 +106,7 @@ fn main() {
   /// your app code goes here
 }
 ```
+
 ---
 class: middle, left
 
@@ -121,6 +128,7 @@ use Cargo to install and manage bits of other people's code.
 ---
 class: middle, left
 
+
 ## storing values
 
 To get started using Rust you'll probably want to assign values so that
@@ -136,6 +144,7 @@ If you want to make a constant, you must specify a type:
 ```
 const FAVENUM: u32 = 6;
 ```
+
 ---
 class: middle, left
 
@@ -150,6 +159,7 @@ There are a lot of types, but just to get you started:
 
 ---
 class: middle, left
+
 
 ## dealing with strings
 
@@ -166,7 +176,6 @@ like Ruby or JavaScript. Here's some key points:
 
 ---
 class: middle, left
-
 
 ## concatenation
 
@@ -209,6 +218,7 @@ for l in letters {
 ---
 class: middle, left
 
+
 ## macros
 
 Macros are an interesting part of Rust. You know something is a macro if its name has
@@ -229,8 +239,10 @@ println!("hello {}!", "world");
 ```rust
 format!("my dogs are named: {} and {}", "cheeto", "frito");
 ```
+
 ---
 class: middle, left
+
 
 ## function signatures
 
@@ -252,6 +264,7 @@ pub fn say_hello(name: &str) -> &str {
 ---
 class: middle, left
 
+
 ## `match` syntax
 
 Rust has pattern matching and it's great!
@@ -269,6 +282,7 @@ match animal {
 
 ---
 class: middle, left
+
 
 ## the `Option` type
 
@@ -293,6 +307,7 @@ greeting(Some("ashley"));
 greeting(None);
 /// "Hello, World!"
 ```
+
 ---
 class: middle, left
 
@@ -302,9 +317,7 @@ class: middle, left
 expect something that is Ok (`Ok()`) or an error (`Err()`).
 
 To write the `Result` type, write the word `Result`, follow by angle brackets with
-a Type and an Error Type inside, e.g. `Result<u32, &'static str>`.
-
-For example:
+a Type and an Error Type inside, e.g. `Result<u32, &'static str>`. For example:
 
 ```rust
 fn parse_name(name: &str) -> Result<&str, &'static str> {
@@ -314,6 +327,7 @@ fn parse_name(name: &str) -> Result<&str, &'static str> {
   }
 }
 ```
+
 ---
 class: middle, left
 
@@ -348,8 +362,9 @@ class: middle, left
 
 - The Rust Docs, https://doc.rust-lang.org/
 - The Rust Book, https://doc.rust-lang.org/book/
-- into_rust Screencasts, http://intorust.com/
-- The Rust Play Ground, https://play.rust-lang.org/
+- `into_rust` Screencasts, http://intorust.com/
+- The Rust Playground, https://play.rust-lang.org/
+- Alternate Playground with popular crates, http://play.integer32.com/
 - Rust by Example, http://rustbyexample.com/
 - Rust on exercism.io, http://exercism.io/languages/rust
 - New Rustacean Podcast, http://www.newrustacean.com/
