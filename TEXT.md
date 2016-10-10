@@ -4,8 +4,9 @@
 
 ## links
 
-- web: https://ashleygwilliams.github.io/a-very-brief-intro-to-rust/#1
+- web: https://ghotiphud.github.io/a-very-brief-intro-to-rust/#1
 - github: https://github.com/ashleygwilliams/a-very-brief-intro-to-rust
+- fork: https://github.com/ghotiphud/a-very-brief-intro-to-rust
 
 ### PRs and issues welcome!
 
@@ -24,10 +25,13 @@ made by [@ag_dubs](https://twitter.com/ag_dubs) who is, at best, an advanced beg
 ## install rust
 
 The best way to install Rust is with [rustup](https://www.rustup.rs/). rustup is a Rust
-version manager. To install it type:
+version manager. To install it:
+
+Prereq: [Microsoft Visual C++ Build Tools 2015](https://www.visualstudio.com/downloads/) (Visual Studio install option)
 
 ```
-curl https://sh.rustup.rs -sSf | sh
+Run rustup‑init.exe...
+  Choose toolchain x86_64-pc-windows-msvc
 ```
 
 To keep your rust up-to-date with the latest stable version of rust,
@@ -328,7 +332,8 @@ fn it_should_say_hello() {
 - The Rust Docs, https://doc.rust-lang.org/
 - The Rust Book, https://doc.rust-lang.org/book/
 - `into_rust` Screencasts, http://intorust.com/
-- The Rust Play Ground, https://play.rust-lang.org/
+- The Rust Playground, https://play.rust-lang.org/
+- Alternate Playground with popular crates, http://play.integer32.com/
 - Rust by Example, http://rustbyexample.com/
 - Rust on exercism.io, http://exercism.io/languages/rust
 - New Rustacean Podcast, http://www.newrustacean.com/
