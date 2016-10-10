@@ -29,7 +29,64 @@ made by [@ag_dubs](https://twitter.com/ag_dubs) who is, at best, an advanced beg
 
 ---
 class: middle, left
+
 ## Quickly - Why Rust?
+#### Resource limits
+Happens in most languages/projects eventually, Options?
+- Manage resources better
+	- Thinking about manual memory management
+	- Sometimes fighting language/design
+- Redesign (large undertaking)
+- Unsafe lower-level langs (C/C++)
+	- Segfaults/Unreliable code
+	- Exploits (Security issues)
+
+---
+class: middle, left
+
+## Rust
+### Hack without fear!
+
+Compiler's got your back.
+
+```rust
+extern crate rayon; 
+
+fn load_images(paths: &[PathBuf]) -> Vec<Image> {
+	paths.iter() 		// par_iter()
+		.map(|path| {
+			Image::load(path)
+		})
+		.collect();
+}
+```
+
+---
+class: middle, left
+
+### Concurrency Bug
+
+```rust
+extern crate rayon; 
+
+fn load_images(paths: &[PathBuf]) -> Vec<Image> {
+	let mut jpegs = 0;
+	paths.par_iter()
+		.map(|path| {
+			if path.ends_with("jpeg") { jpegs += 1; }
+			Image::load(path)
+		})
+		.collect();
+}
+```
+
+No Data-Races!
+
+AtomicU32 or Mutex.
+
+---
+class: middle, left
+
 ### Motivating Examples:
 
 - http://blog.skylight.io/introducing-helix/
