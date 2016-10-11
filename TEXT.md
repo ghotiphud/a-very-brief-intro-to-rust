@@ -44,7 +44,7 @@ rustup update
 To check which version of Rust you have type:
 
 ```
-rustc -- version
+rustc --version
 ```
 
 <hr>
@@ -57,12 +57,13 @@ There are many ways to setup a project in Rust, but this is the simplest.
 2. Clone the repository
 3. `cd` into the repository directory
 4. Type `cargo init .`
+  * Use `--bin` if you are not writing a library
 
 This will create several files and folders for you automatically:
 
 - `Cargo.toml`: metadata about your project and its dependencies
 - `.gitignore`: ignores compiled files built by Rust
-- `src/lib.rs`: where your Rust code goes (change this to `main.rs` if you are not writing a library)
+- `src/lib.rs` or `src/main.rs`: where your Rust code goes
 
 <hr>
 
@@ -78,13 +79,13 @@ code to be used in someone else's application as a crate or module.
 If you want to do this, you should use a `lib.rs`.
 
 If you are writing a <strong>not library</strong>, it means that you'd like
-to write code that compiles into a binary that someone can run. If you 
-want to do this, you need to use a `main.rs`. Inside the `main.rs` you 
+to write code that compiles into a binary that someone can run. If you
+want to do this, you need to use a `main.rs`. Inside the `main.rs` you
 should have a `main` function that looks like this:
 
 ```rust
 fn main() {
-  /// your app code goes here
+  // your app code goes here
 }
 ```
 
@@ -160,7 +161,7 @@ like Ruby or JavaScript. Here's some key points:
 
 ```rust
 let realstring = String::from("hello ");
-let str1 = "world!"
+let str1 = "world!";
 let message = realstring.push_str(str1);
 ```
 
@@ -168,7 +169,7 @@ let message = realstring.push_str(str1);
 
 ```rust
 let str1 = "hello ";
-let str2 = "world!"
+let str2 = "world!";
 let message = format!("{}{}", str1, str2);
 ```
 
@@ -187,7 +188,7 @@ Example:
 let letters = String::from("ashley").chars();
 
 for l in letters {
-  /// do something cool with characters
+  // do something cool with characters
 }
 ```
 
@@ -208,8 +209,8 @@ println!("i get printed on the screen");
 println!("hello {}!", "world");
 ```
 
-- `format!` is also a macro. We talked about it before as a way to build `str`s out of
-  `str`s. 
+- `format!` is also a macro. We talked about it before as a way to 
+  concatenate `str`s.
 
 ```rust
 format!("my dogs are named: {} and {}", "cheeto", "frito");
@@ -246,7 +247,7 @@ Rust has pattern matching and it's great!
 match animal {
   "cat" => "Meow",
   "dog" => "Woof",
-  _ => "<indeciperable>", /// trailing comma!
+  _ => "<indeciperable>", // trailing comma!
 }
 ```
 
@@ -271,13 +272,13 @@ fn greeting(name: Option<&str>) -> &str {
   let who = match name {
     Some(n) => n,
     None => "World",
-  }
+  };
   format!("Hello, {}!", who)
 }
 greeting(Some("ashley"));
-/// "Hello, ashley!"
+// "Hello, ashley!"
 greeting(None);
-/// "Hello, World!"
+// "Hello, World!"
 ```
 
 <hr>
@@ -291,7 +292,7 @@ To write the `Result` type, write the word `Result`, follow by angle brackets wi
 a Type and an Error Type inside, e.g. `Result<u32, &'static str>`. For example:
 
 ```rust
-fn parse_name(name: &str) -> Result<&str, &'static str> {
+fn parse_name(name: Option<&str>) -> Result<&str, &'static str> {
   match name {
     Some(n) => Ok(n),
     None => Err("You must provide a name."),
@@ -313,15 +314,15 @@ fn say_hello(name: &str) -> &str {
   let who = match name {
     Some(n) => n,
     None => "World",
-  }
+  };
   format!("Hello, {}!", who)
 }
 
 #[test]
 fn it_should_say_hello() {
-  assert_eq!(say_hello(), "Hello, World!");
-  assert_ne!(say_hello("ashley"), "Hello, World!");
-  assert_eq!(say_hello("ashley"), "Hello, ashley!");
+  assert_eq!(say_hello(None), "Hello, World!");
+  assert_ne!(say_hello(Some("ashley")), "Hello, World!");
+  assert_eq!(say_hello(Some("ashley")), "Hello, ashley!");
 }
 ```
 
